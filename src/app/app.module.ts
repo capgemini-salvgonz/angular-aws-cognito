@@ -21,7 +21,8 @@ import { HomeComponent } from './components/home/home.component';
   ],
   imports: [
     BrowserModule,
-    routing
+    routing,
+    HttpClientModule
   ],
   providers: [appRouingProviders],
   bootstrap: [AppComponent]

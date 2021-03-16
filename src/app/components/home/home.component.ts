@@ -2,21 +2,25 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {map} from 'rxjs/operators';
 
+import { User } from '../../model/user.model';
+import { UserService } from '../../service/users.service';
+
 @Component({
   selector: 'home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  providers: [UserService]
 })
 export class HomeComponent {
   public idToken: string;
   public accessToken: string;
   public expiresIn: number;
   public currentUrl: string;
+  public user: User;
   
   constructor(
-    private _route: ActivatedRoute
-  ){
-    this.currentUrl = window.location.href;
-  }
+    private _route: ActivatedRoute,
+    private _userService: UserService
+  ){ }
 
   ngOnInit(): void {
     this._route.fragment
@@ -33,6 +37,17 @@ export class HomeComponent {
       this.expiresIn = parseInt(res.expires_in);
       this.idToken = res.id_token;
     });
+
+    this._userService.getLoggedUser(this.idToken).subscribe(
+      result => {
+        console.log(result);
+        this.user = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
   }
 
 }

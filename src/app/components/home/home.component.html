@@ -1,7 +1,11 @@
-
-<p>Current url: {{currentUrl}}</p>
-<p>Token id: {{idToken}}</p>
-<p>Access token: {{accessToken}}</p>
-<p>Expires in: {{expiresIn}}</p>
-
-
+<div class="login-card">  
+  <div *ngIf="user">
+    <h3 class="center">Authenticated user!!!</h3>
+    <p>Id: {{user.cognitoUserName}}</p>
+    <p>User: {{user.nickName}}</p>
+    <p>Email: {{user.email}}</p>    
+    <p>Phone number: {{user.phoneNumber}}</p>
+    <p>Tonken Expires in: {{expiresIn}} segs</p>
+  </div>  
+  <h3 *ngIf="!user" class="center">No authentication information available</h3>
+</div>
